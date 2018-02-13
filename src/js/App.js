@@ -12,7 +12,9 @@ class App extends React.Component {
       name: 'United States',
       rate: 0.7041,
       code: 'USD',
-      sign: '$'
+      sign: '$',
+      inputA: 0,
+      inputB: 0
     }
   }
 
@@ -23,6 +25,23 @@ class App extends React.Component {
       code: target.options[target.selectedIndex].dataset.code,
       rate: target.options[target.selectedIndex].dataset.sell,
       sign: target.options[target.selectedIndex].dataset.sign
+    });
+  }
+
+  inputA(event) {
+    //console.log(event.target.value);
+    this.setState({
+      inputA: event.target.value,
+      inputB: event.target.value * this.state.rate
+    });
+
+  }
+
+  inputB(event) {
+    //console.log(event.target.value);
+    this.setState({
+      inputB: event.target.value,
+      inputA: event.target.value / this.state.rate
     });
   }
 
@@ -39,7 +58,10 @@ class App extends React.Component {
       );
     }).slice(1);
 
-    const { data, name, rate, code, sign } = this.state;
+    const { data, name, rate, code, sign, inputA, inputB } = this.state;
+
+    console.log('inputA', inputA);
+    console.log('inputB', inputB);
 
     return (
       <div>
@@ -69,19 +91,35 @@ class App extends React.Component {
               }
               <div className="input-group">
                 <span className="input-group-addon">$</span>
-                <input type="number" defaultValue={0} className="form-control" aria-describedby="basic-addon2" step="1" pattern="\d\.\d{2}" />
+                <input
+                  type="number"
+                  defaultValue={0}
+                  className="form-control"
+                  aria-describedby="basic-addon2"
+                  step="1"
+                  pattern="\d\.\d{2}"
+                  value={this.state.inputA}
+                  onChange={(event) => this.inputA(event)} />
                 <span className="input-group-addon" id="basic-addon2">AUD</span>
               </div>
 
             </div>
             <div className="col-sm-6 currency-to-input">
-              <h3 className={`currency-flag ${code}`}>United States Dollars</h3>
+              <h3 className={`currency-flag ${code}`}>{name}</h3>
               {
                 //Currency B input
               }
               <div className="input-group">
                 <span className="input-group-addon">{sign}</span>
-                <input type="number" defaultValue={0} className="form-control" aria-describedby="basic-addon3" step="1" pattern="\d\.\d{2}" />
+                <input
+                  type="number"
+                  defaultValue={0}
+                  className="form-control"
+                  aria-describedby="basic-addon3"
+                  step="1"
+                  pattern="\d\.\d{2}"
+                  value={this.state.inputB}
+                  onChange={(event) => this.inputB(event)} />
                 <span className="input-group-addon" id="basic-addon3">{code}</span>
               </div>
 
