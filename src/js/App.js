@@ -1,6 +1,7 @@
 import React from 'react';
 import image from '../images/cash-calculator.svg';
 import data from './data/Data';
+import SelectCurrency from './select';
 
 class App extends React.Component {
   constructor(props) {
@@ -64,11 +65,7 @@ class App extends React.Component {
             <div className="col-md-6 col-md-offset-3">
               <h2>Select Currency</h2>
               <p>
-                <select onChange={(event) => this.handleChange(event.target)}>
-                  {
-                    select
-                  }
-                </select>
+                <SelectCurrency dataselect={data} change={(event) => this.handleChange(event.target)} />
               </p>
             </div>
           </div>
