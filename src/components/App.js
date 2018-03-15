@@ -1,59 +1,44 @@
-import React from 'react';
-import image from '../images/cash-calculator.svg';
-import data from './data/Data';
-import SelectCurrency from './select';
+import React, { Component } from 'react'
+import image from '../../assets/img/cash-calculator.svg'
+import data from './data/Data'
+import SelectCurrency from './select'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: data.currencies,
-      name: data.currencies[1]['name'],
-      rate: data.currencies[1].sellRate,
-      code: data.currencies[1].code,
-      sign: data.currencies[1].sign,
-      inputA: 0,
-      inputB: 0
-    }
+class App extends Component {
+  state = {
+    data: data.currencies,
+    name: data.currencies[1]['name'],
+    rate: data.currencies[1].sellRate,
+    code: data.currencies[1].code,
+    sign: data.currencies[1].sign,
+    inputA: 0,
+    inputB: 0
   }
 
-  handleChange(target) {
+  handleChange = (target) => {
     this.setState({
       name: target.options[target.selectedIndex].value,
       code: target.options[target.selectedIndex].dataset.code,
       rate: target.options[target.selectedIndex].dataset.sell,
       sign: target.options[target.selectedIndex].dataset.sign
-    });
+    })
   }
 
-  inputHandler(target) {
+  inputHandler = (target) => {
     if (target.className.includes('inputA')) {
       this.setState({
         inputA: target.value,
         inputB: target.value * this.state.rate
-      });
+      })
     } else {
       this.setState({
         inputB: target.value,
         inputA: target.value / this.state.rate
-      });
+      })
     }
   }
 
-  render() {
-    const select = this.state.data.map(item => {
-      return (
-        <option
-          key={item.name}
-          data-code={item.code}
-          data-sign={item.sign}
-          data-sell={item.sellRate}
-          value={item.name}>{item.name}</option>
-      );
-    }).slice(1);
-
-    const { data, name, rate, code, sign, inputA, inputB } = this.state;
-
+  render () {
+    const { data, name, rate, code, sign } = this.state
     return (
       <div>
         <header>
@@ -83,7 +68,7 @@ class App extends React.Component {
                   step="1"
                   pattern="\d\.\d{2}"
                   value={this.state.inputA}
-                  onChange={(event) => this.inputHandler(event.target)} />
+                  onChange={event => this.inputHandler(event.target)} />
                 <span className="input-group-addon" id="basic-addon2">AUD</span>
               </div>
 
@@ -100,7 +85,7 @@ class App extends React.Component {
                   step="1"
                   pattern="\d\.\d{2}"
                   value={this.state.inputB}
-                  onChange={(event) => this.inputHandler(event.target)} />
+                  onChange={event => this.inputHandler(event.target)} />
                 <span className="input-group-addon" id="basic-addon3">{code}</span>
               </div>
 
@@ -119,4 +104,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App
