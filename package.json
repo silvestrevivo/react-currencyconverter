@@ -1,7 +1,7 @@
 {
   "name": "webpack-starter",
   "version": "1.0.0",
-  "description": "Webpack project starter.",
+  "description": "CurrencyConverter tutorial version with Webpack",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
